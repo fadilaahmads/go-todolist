@@ -1,13 +1,11 @@
 package models
 
-import "time"
-
 type TaskModel struct {
 	Id        int
 	Title     string
 	Email     string
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	CreatedAt string
+	UpdatedAt string
 }
 
 type WebResponse struct {
