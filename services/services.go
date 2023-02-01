@@ -36,3 +36,19 @@ func GetAll(c *gin.Context) []models.TaskModel {
 	return tasks
 
 }
+
+func GetOne(c *gin.Context, taskId int) models.TaskModel {
+	// TODO
+	// Create exception for out of bound index
+	db, err := databases.DBConnect()
+	utils.PanicIfError(err)
+
+	stmt, err := db.Prepare("SELECT * FROM tasks WHERE id=?")
+	defer stmt.Close()
+	utils.PanicIfError(err)
+
+	var task models.TaskModel
+	err = stmt.QueryRow(taskId).Scan(&task.Id, &task.Title, &task.Email, &task.CreatedAt, &task.UpdatedAt)
+	utils.PanicIfError(err)
+	return task
+}
